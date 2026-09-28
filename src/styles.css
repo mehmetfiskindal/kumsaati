@@ -1,0 +1,1112 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Regular.ttf');
+}
+
+:root {
+  color: #f1f0e9;
+  background-color: #10120f;
+  font-family: 'Inter';
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #10120f;
+  color: #f1f0e9;
+  font-family: 'Inter';
+}
+
+button {
+  color: inherit;
+  font-family: 'Inter';
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 22px;
+  background-color: #10120f;
+  color: #f1f0e9;
+  font-family: 'Inter';
+  font-size: 16px;
+}
+
+.timer-shell {
+  display: flex;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid #34382f;
+  border-radius: 22px;
+  background-color: #191c17;
+}
+
+.focus-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: 28px 34px 22px;
+  background-color: #171a16;
+}
+
+.brand-row,
+.brand-lockup,
+.live-pill,
+.focus-footer,
+.completed-count,
+.footer-note,
+.control-topline,
+.section-label,
+.range-hint,
+.sound-card,
+.sound-copy,
+.action-row,
+.control-footnote,
+.page-signature {
+  display: flex;
+  align-items: center;
+}
+
+.brand-row,
+.focus-footer,
+.control-topline,
+.section-label,
+.range-hint,
+.page-signature {
+  justify-content: space-between;
+}
+
+.brand-lockup {
+  gap: 10px;
+}
+
+.brand-mark {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #76845f;
+  border-radius: 16px;
+}
+
+.mark-hand {
+  position: absolute;
+  left: 13px;
+  display: block;
+  width: 1px;
+  background-color: #d0dda8;
+}
+
+.hand-long {
+  top: 5px;
+  height: 9px;
+}
+
+.hand-short {
+  top: 9px;
+  height: 5px;
+}
+
+.mark-pivot {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 3px;
+  height: 3px;
+  border-radius: 16px;
+  background-color: #d0dda8;
+}
+
+.brand-name,
+.live-pill,
+.eyebrow,
+.cycle-kicker,
+.time-units,
+.count-caption,
+.control-topline,
+.section-label,
+.range-hint,
+.preset-label,
+.preset span,
+.reset-action,
+.control-footnote,
+.page-signature {
+  font-family: 'Inter';
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.brand-name {
+  color: #e0e2d6;
+  font-size: 11px;
+}
+
+.brand-name span {
+  color: #74796c;
+}
+
+.live-pill {
+  gap: 8px;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid #3c4036;
+  border-radius: 18px;
+  color: #b1b5a7;
+  font-size: 9px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 16px;
+  background-color: #929688;
+}
+
+.status-dot.active {
+  background-color: #cee293;
+}
+
+.focus-heading {
+  margin-top: 30px;
+}
+
+.eyebrow {
+  color: #aec38a;
+  font-size: 9px;
+}
+
+.focus-heading h1 {
+  margin: 9px 0 7px;
+  color: #f2f1e9;
+  font-size: 38px;
+  font-weight: 400;
+}
+
+.focus-heading h1 span,
+.focus-heading h1 em {
+  display: block;
+  font-style: normal;
+}
+
+.focus-heading h1 em {
+  color: #c9dca0;
+  font-weight: 400;
+}
+
+.focus-heading p,
+.control-heading p {
+  margin: 0;
+  color: #b3b6a9;
+  font-size: 13px;
+}
+
+.timer-stage {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 22px 0 18px;
+}
+
+.hourglass-scene {
+  display: flex;
+  flex: 0 0 148px;
+  align-items: center;
+  justify-content: center;
+  height: 174px;
+}
+
+/* Every piece stays in normal layout flow so the glass is visible in iOS too. */
+.hourglass {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 132px;
+}
+
+.glass-cap {
+  width: 126px;
+  height: 4px;
+  border-radius: 4px;
+  background-color: #b0c295;
+}
+
+.chamber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 66px;
+  overflow: hidden;
+  border: 2px solid #95a87c;
+  background-color: #22271e;
+}
+
+.chamber-top {
+  border-radius: 14px 14px 54px 54px;
+}
+
+.chamber-bottom {
+  border-radius: 54px 54px 14px 14px;
+}
+
+.glass-inner {
+  display: flex;
+  flex-direction: column;
+  width: 82px;
+  height: 42px;
+  overflow: hidden;
+  border: 1px solid #71805d;
+  background-color: #151912;
+}
+
+.chamber-top .glass-inner {
+  justify-content: flex-end;
+  border-radius: 9px 9px 46px 46px;
+}
+
+.chamber-bottom .glass-inner {
+  justify-content: flex-start;
+  border-radius: 46px 46px 9px 9px;
+}
+
+.sand {
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 2px;
+  background-color: #d2e68f;
+}
+
+.sand-top {
+  margin-top: auto;
+}
+
+.glass-neck {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  border-right: 1px solid #a2b58a;
+  border-left: 1px solid #a2b58a;
+}
+
+.sand-stream {
+  width: 2px;
+  height: 100%;
+  background-color: #d2e68f;
+  opacity: 0.3;
+}
+
+.hourglass.flowing .sand-stream {
+  opacity: 1;
+}
+
+.hourglass.flipped .glass-cap {
+  background-color: #d2dda9;
+}
+
+.time-readout {
+  flex: 1;
+  min-width: 0;
+  max-width: 260px;
+}
+
+.cycle-kicker {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #3a3e34;
+  color: #aeb2a2;
+  font-size: 9px;
+}
+
+.cycle-kicker span:last-child {
+  color: #d0dea8;
+}
+
+.time-value {
+  margin-top: 14px;
+  color: #f2f1e9;
+  font-size: 54px;
+  font-weight: 400;
+}
+
+.time-units {
+  display: flex;
+  gap: 8px;
+  margin-top: 9px;
+  color: #959a8a;
+  font-size: 8px;
+}
+
+.time-units i {
+  color: #c9dca0;
+  font-style: normal;
+}
+
+.cycle-progress {
+  width: 100%;
+  height: 4px;
+  margin-top: 22px;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: #383d33;
+}
+
+.cycle-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  background-color: #c9dca0;
+}
+
+.next-cycle-copy {
+  margin-top: 10px;
+  color: #a8ad9c;
+  font-size: 11px;
+}
+
+.next-cycle-copy strong {
+  color: #e0e8cc;
+  font-weight: 400;
+}
+
+.focus-footer {
+  padding-top: 14px;
+  border-top: 1px solid #34392f;
+}
+
+.completed-count {
+  gap: 10px;
+}
+
+.count-number {
+  color: #d6e3b2;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.count-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #a1a697;
+  font-size: 8px;
+}
+
+.footer-note {
+  gap: 8px;
+  color: #b1b5a6;
+  font-size: 10px;
+}
+
+.footer-note > span:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-spark {
+  color: #d1dfa6;
+  font-size: 17px;
+}
+
+.control-panel {
+  display: flex;
+  flex: 0 0 320px;
+  flex-direction: column;
+  padding: 28px 26px 22px;
+  border-left: 1px solid #34382f;
+  background-color: #1d201a;
+}
+
+.control-topline {
+  color: #b0b4a5;
+  font-size: 9px;
+}
+
+.control-topline span:first-child {
+  color: #d6e3b2;
+}
+
+.control-topline i {
+  color: #777c6e;
+  font-style: normal;
+}
+
+.control-heading {
+  margin-top: 24px;
+}
+
+.control-heading h2 {
+  margin: 0 0 8px;
+  color: #f0f0e7;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.control-heading h2 span,
+.control-heading p span {
+  display: block;
+}
+
+.control-heading p {
+  font-size: 11px;
+}
+
+.duration-section {
+  margin-top: 25px;
+}
+
+.section-label {
+  color: #c3d29f;
+  font-size: 9px;
+}
+
+.section-label span:last-child {
+  color: #a0a594;
+  font-size: 8px;
+}
+
+.duration-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  margin-top: 10px;
+  padding: 0 12px;
+  border: 1px solid #4a4f41;
+  border-radius: 11px;
+  background-color: #171a15;
+}
+
+.stepper-button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #515747;
+  border-radius: 9px;
+  background-color: #282d23;
+  color: #e0ebbf;
+  font-size: 23px;
+}
+
+.stepper-current {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.stepper-current strong {
+  color: #f2f1e9;
+  font-size: 29px;
+  font-weight: 400;
+}
+
+.stepper-current span {
+  color: #aeb2a3;
+  font-size: 10px;
+}
+
+.range-hint {
+  margin-top: 7px;
+  color: #a2a795;
+  font-family: 'Inter';
+  font-size: 8px;
+}
+
+.preset-label {
+  margin-top: 18px;
+  color: #b1b5a6;
+  font-size: 9px;
+}
+
+.preset-grid {
+  display: flex;
+  gap: 7px;
+  margin-top: 9px;
+}
+
+.preset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 3px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid #464b3e;
+  border-radius: 8px;
+  background-color: #282c23;
+  color: #e1e2d7;
+}
+
+.preset strong {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.preset span {
+  color: #a9ad9f;
+  font-size: 8px;
+}
+
+.preset.selected {
+  border-color: #bdcf91;
+  background-color: #3a4630;
+  color: #f0f4e2;
+}
+
+.preset.selected span {
+  color: #d0e1a1;
+}
+
+.sound-card {
+  gap: 10px;
+  min-height: 62px;
+  margin-top: 19px;
+  padding: 0 10px;
+  border: 1px solid #41463a;
+  border-radius: 10px;
+  background-color: #24281f;
+}
+
+.sound-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: #35402b;
+}
+
+.sound-wave {
+  width: 2px;
+  border-radius: 2px;
+  background-color: #d4e5a8;
+}
+
+.wave-one {
+  height: 7px;
+}
+
+.wave-two {
+  height: 14px;
+}
+
+.wave-three {
+  height: 10px;
+}
+
+.sound-copy {
+  align-items: flex-start;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sound-copy strong {
+  color: #eceee4;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.sound-copy span {
+  color: #b0b4a6;
+  font-size: 9px;
+}
+
+.sound-toggle {
+  position: relative;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 22px;
+  padding: 2px;
+  border: 1px solid #59604c;
+  border-radius: 13px;
+  background-color: #34392e;
+}
+
+.sound-toggle span {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 16px;
+  background-color: #d3d7c6;
+}
+
+.sound-toggle.enabled {
+  border-color: #9fb674;
+  background-color: #607545;
+}
+
+.sound-toggle.enabled span {
+  margin-left: 16px;
+  background-color: #eff5d8;
+}
+
+.action-row {
+  gap: 10px;
+  margin-top: 17px;
+}
+
+.primary-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  height: 50px;
+  padding: 0 14px;
+  border: 1px solid #c7d99a;
+  border-radius: 9px;
+  background-color: #c7d99a;
+  color: #202619;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.primary-action.running {
+  border-color: #9eae7d;
+  background-color: #343e2b;
+  color: #edf4d8;
+}
+
+.action-arrow {
+  font-size: 16px;
+}
+
+.reset-action {
+  height: 50px;
+  padding: 0 13px;
+  border: 1px solid #4b5043;
+  border-radius: 9px;
+  background-color: #292d24;
+  color: #c3c7b8;
+  font-size: 9px;
+}
+
+.control-footnote {
+  gap: 8px;
+  margin-top: 16px;
+  color: #a2a797;
+  font-size: 8px;
+}
+
+.footnote-line {
+  width: 18px;
+  height: 1px;
+  background-color: #a3b77b;
+}
+
+.page-signature {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 1080px;
+  margin: 10px auto 0;
+  color: #858a7b;
+  font-size: 8px;
+}
+
+@media (max-width: 900px) and (min-width: 721px) {
+  .app {
+    padding: 16px;
+  }
+
+  .focus-panel {
+    padding: 23px 20px 18px;
+  }
+
+  .control-panel {
+    flex-basis: 278px;
+    padding: 23px 20px 18px;
+  }
+
+  .focus-heading {
+    margin-top: 22px;
+  }
+
+  .focus-heading h1 {
+    font-size: 32px;
+  }
+
+  .timer-stage {
+    gap: 10px;
+  }
+
+  .hourglass-scene {
+    flex-basis: 124px;
+  }
+
+  .time-value {
+    font-size: 43px;
+  }
+
+  .control-heading h2 {
+    font-size: 23px;
+  }
+}
+
+@media (max-width: 720px) {
+  .app {
+    padding: 8px;
+  }
+
+  .timer-shell {
+    flex-direction: column;
+    margin: 0 auto 0;
+    border-radius: 18px;
+  }
+
+  .focus-panel {
+    flex: 0 0 auto;
+    padding: 12px 14px 9px;
+  }
+
+  .brand-mark {
+    width: 25px;
+    height: 25px;
+  }
+
+  .mark-hand {
+    left: 11px;
+  }
+
+  .mark-pivot {
+    top: 11px;
+    left: 10px;
+  }
+
+  .brand-name {
+    font-size: 10px;
+  }
+
+  .live-pill {
+    gap: 6px;
+    min-height: 26px;
+    padding: 0 8px;
+    font-size: 8px;
+  }
+
+  .focus-heading {
+    margin-top: 10px;
+  }
+
+  .focus-heading h1 {
+    margin: 3px 0 4px;
+    font-size: 25px;
+  }
+
+  .focus-heading p,
+  .focus-footer {
+    display: none;
+  }
+
+  .timer-stage {
+    flex: 0 0 auto;
+    gap: 8px;
+    padding: 8px 0 10px;
+  }
+
+  .hourglass-scene {
+    flex-basis: 82px;
+    height: 112px;
+  }
+
+  .hourglass {
+    width: 88px;
+  }
+
+  .glass-cap {
+    width: 82px;
+    height: 4px;
+  }
+
+  .chamber {
+    width: 72px;
+    height: 48px;
+  }
+
+  .chamber-top {
+    border-radius: 10px 10px 36px 36px;
+  }
+
+  .chamber-bottom {
+    border-radius: 36px 36px 10px 10px;
+  }
+
+  .glass-inner {
+    width: 52px;
+    height: 28px;
+  }
+
+  .chamber-top .glass-inner {
+    border-radius: 7px 7px 29px 29px;
+  }
+
+  .chamber-bottom .glass-inner {
+    border-radius: 29px 29px 7px 7px;
+  }
+
+  .glass-neck {
+    width: 8px;
+    height: 8px;
+  }
+
+  .time-readout {
+    max-width: none;
+  }
+
+  .cycle-kicker {
+    padding-bottom: 6px;
+    font-size: 8px;
+  }
+
+  .time-value {
+    margin-top: 8px;
+    font-size: 33px;
+  }
+
+  .time-units {
+    margin-top: 7px;
+    font-size: 7px;
+  }
+
+  .cycle-progress {
+    margin-top: 9px;
+  }
+
+  .next-cycle-copy {
+    margin-top: 6px;
+    font-size: 8px;
+  }
+
+  .control-panel {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 13px 14px 12px;
+    border-top: 1px solid #34382f;
+    border-left: 0;
+  }
+
+  .control-heading {
+    margin-top: 9px;
+  }
+
+  .control-heading h2 {
+    margin-bottom: 3px;
+    font-size: 18px;
+  }
+
+  .control-heading p {
+    display: none;
+  }
+
+  .duration-section {
+    margin-top: 11px;
+  }
+
+  .duration-stepper {
+    height: 48px;
+    margin-top: 6px;
+  }
+
+  .stepper-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .stepper-current strong {
+    font-size: 25px;
+  }
+
+  .preset-label {
+    margin-top: 10px;
+  }
+
+  .preset-grid {
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .preset {
+    height: 36px;
+    min-width: 0;
+    gap: 2px;
+  }
+
+  .preset strong {
+    font-size: 13px;
+  }
+
+  .preset span {
+    font-size: 8px;
+  }
+
+  .sound-card {
+    min-height: 46px;
+    margin-top: 10px;
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .sound-copy span {
+    font-size: 8px;
+  }
+
+  .action-row {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    margin-top: 9px;
+  }
+
+  .primary-action {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 42px;
+  }
+
+  .reset-action {
+    box-sizing: border-box;
+    flex: 0 0 78px;
+    width: 78px;
+    min-width: 78px;
+    height: 42px;
+    padding: 0 8px;
+  }
+
+  .control-footnote {
+    display: none;
+  }
+
+  .page-signature {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .app {
+    padding: 8px;
+  }
+
+  .control-panel {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .preset-grid {
+    gap: 3px;
+  }
+}
+
+
+/* Explicit sizes keep native UIKit controls and browser layout aligned. */
+.duration-stepper {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  gap: 8px;
+  padding: 8px;
+}
+.stepper-button {
+  box-sizing: border-box;
+  flex: 0 0 44px;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0;
+  text-align: center;
+}
+.stepper-current {
+  flex: 1 1 0px;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.stepper-current strong, .stepper-current span {
+  width: 100%;
+  text-align: center;
+}
+.preset {
+  box-sizing: border-box;
+  flex: 1 1 0px;
+  min-width: 0;
+  height: 44px;
+  text-align: center;
+  font-size: 13px;
+}
+.primary-action { text-align: center; justify-content: center; }
+.sound-copy { min-width: 0; }
+.sound-icon { flex: 0 0 30px; }
+.time-units { font-size: 9px; }
+.chamber-top, .chamber-top .glass-inner {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 48px;
+  border-bottom-right-radius: 48px;
+}
+.chamber-bottom, .chamber-bottom .glass-inner {
+  border-top-left-radius: 48px;
+  border-top-right-radius: 48px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+@media (max-width: 720px) {
+  .app { padding: 12px; }
+  .focus-panel { padding: 18px 16px 20px; }
+  .focus-heading { margin-top: 24px; }
+  .focus-heading h1 { font-size: 24px; color: #d6e5b1; margin-top: 7px; }
+  .eyebrow { font-size: 9px; }
+  .brand-name { font-size: 11px; }
+  .live-pill { font-size: 8px; padding: 0 8px; }
+  .timer-stage { padding: 22px 0 4px; gap: 16px; }
+  .hourglass-scene { flex: 0 0 76px; height: 130px; }
+  .hourglass { width: 76px; }
+  .glass-cap { width: 76px; }
+  .chamber { width: 64px; height: 52px; }
+  .glass-inner { width: 48px; height: 40px; }
+  .time-value { font-size: 48px; margin-top: 12px; }
+  .time-units { margin-top: 2px; font-size: 8px; }
+  .cycle-kicker { font-size: 8px; }
+  .next-cycle-copy { font-size: 9px; }
+  .control-panel { padding: 20px 16px; }
+  .control-heading { margin-top: 10px; }
+  .control-heading h2 { font-size: 20px; margin-bottom: 0; }
+  .duration-section { margin-top: 22px; }
+  .duration-stepper { height: 68px; }
+  .stepper-button { height: 44px; }
+  .stepper-current strong { font-size: 28px; }
+  .stepper-current span { font-size: 8px; }
+  .preset-label { margin-top: 18px; }
+  .preset { height: 44px; font-size: 12px; }
+  .sound-card { margin-top: 18px; min-height: 64px; }
+  .sound-copy strong { font-size: 12px; }
+  .sound-copy span { font-size: 9px; }
+  .action-row { margin-top: 18px; }
+  .primary-action, .reset-action { height: 48px; }
+  .primary-action { font-size: 14px; }
+  .reset-action { font-size: 10px; }
+}
+@media (max-width: 360px) {
+  .app { padding: 8px; }
+  .focus-panel, .control-panel { padding-left: 12px; padding-right: 12px; }
+  .timer-stage { gap: 10px; }
+  .time-value { font-size: 40px; }
+  .preset { font-size: 11px; }
+}
