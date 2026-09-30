@@ -223,7 +223,7 @@ button {
 
 .hourglass-scene {
   display: flex;
-  flex: 0 0 148px;
+  flex: 0 0 174px;
   align-items: center;
   justify-content: center;
   height: 174px;
@@ -235,6 +235,8 @@ button {
   flex-direction: column;
   align-items: center;
   width: 132px;
+  transform: rotate(0deg);
+  transform-origin: center;
 }
 
 .glass-cap {
@@ -279,7 +281,7 @@ button {
 }
 
 .chamber-bottom .glass-inner {
-  justify-content: flex-start;
+  justify-content: flex-end;
   border-radius: 46px 46px 9px 9px;
 }
 
@@ -287,12 +289,19 @@ button {
   display: block;
   flex: 0 0 auto;
   width: 100%;
-  min-height: 2px;
+  height: 100%;
   background-color: #d2e68f;
 }
 
 .sand-top {
   margin-top: auto;
+  transform-origin: center bottom;
+  border-radius: 5px 5px 48px 48px;
+}
+
+.sand-bottom {
+  transform-origin: center bottom;
+  border-radius: 48px 48px 5px 5px;
 }
 
 .glass-neck {
@@ -309,7 +318,7 @@ button {
   width: 2px;
   height: 100%;
   background-color: #d2e68f;
-  opacity: 0.3;
+  opacity: 0;
 }
 
 .hourglass.flowing .sand-stream {
@@ -318,6 +327,24 @@ button {
 
 .hourglass.flipped .glass-cap {
   background-color: #d2dda9;
+}
+
+/* Keep the sand against the physical bottom of each chamber after a turn. */
+.hourglass.flipped .chamber-top .glass-inner {
+  justify-content: flex-start;
+}
+
+.hourglass.flipped .chamber-bottom .glass-inner {
+  justify-content: flex-start;
+}
+
+.hourglass.flipped .sand-top {
+  margin-top: 0;
+  transform-origin: center top;
+}
+
+.hourglass.flipped .sand-bottom {
+  transform-origin: center top;
 }
 
 .time-readout {
@@ -690,6 +717,10 @@ button {
 }
 
 .reset-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   height: 50px;
   padding: 0 13px;
   border: 1px solid #4b5043;
@@ -1076,7 +1107,7 @@ button {
   .brand-name { font-size: 11px; }
   .live-pill { font-size: 8px; padding: 0 8px; }
   .timer-stage { padding: 22px 0 4px; gap: 16px; }
-  .hourglass-scene { flex: 0 0 76px; height: 130px; }
+  .hourglass-scene { flex: 0 0 130px; height: 130px; }
   .hourglass { width: 76px; }
   .glass-cap { width: 76px; }
   .chamber { width: 64px; height: 52px; }

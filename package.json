@@ -22,6 +22,15 @@
     "id": "kusursuzzamanlayici",
     "name": "Kum Saati",
     "entry": "src/index.tsx",
+    "icons": {
+      "128": "icons/icon-source.png"
+    },
+    "sailfish": {
+      "organizationName": "org.geastack",
+      "applicationName": "kusursuzzamanlayici",
+      "devicePixelRatio": 2,
+      "permissions": ["Audio"]
+    },
     "targets": {
       "web": true,
       "esp32": false,

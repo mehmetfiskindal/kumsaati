@@ -16,6 +16,7 @@ export class App extends ReactiveComponent {
   isPaused = false
   soundEnabled = true
   hourglassFlipped = false
+  hourglassRotation = 0
 
   private intervalId: number | null = null
   private deadlineAtMs = 0
@@ -23,6 +24,8 @@ export class App extends ReactiveComponent {
   private hasAudioContext = false
   private suppressClickUntilMs = 0
   private touchMoved = false
+  private flipStartedAtMs = 0
+  private flipFromDegrees = 0
 
   template() {
     return (
@@ -44,14 +47,14 @@ export class App extends ReactiveComponent {
 
             <div class="timer-stage">
               <div class="hourglass-scene">
-                <div class={`hourglass ${this.hourglassFlipped ? 'flipped' : ''} ${this.isRunning ? 'flowing' : ''}`}>
+                <div class={`hourglass ${this.hourglassFlipped ? 'flipped' : ''} ${this.isRunning ? 'flowing' : ''}`} style={{ transform: `rotate(${this.hourglassRotation}deg)` }}>
                   <div class="glass-cap cap-top" />
                   <div class="chamber chamber-top">
-                    <div class="glass-inner"><div class="sand sand-top" style={{ height: `${Math.max(0, Math.min(100, this.remainingMs / (this.selectedSeconds * 1000) * 100))}%` }} /></div>
+                    <div class="glass-inner"><div class="sand sand-top" style={{ transform: `scaleY(${Math.max(0, Math.min(1, this.hourglassFlipped ? 1 - this.remainingMs / (this.selectedSeconds * 1000) : this.remainingMs / (this.selectedSeconds * 1000)))})` }} /></div>
                   </div>
-                  <div class="glass-neck"><div class="sand-stream" /></div>
+                  <div class="glass-neck"><div class="sand-stream" style={{ opacity: this.isRunning ? 0.35 + 0.65 * ((this.remainingMs % 240) / 240) : 0 }} /></div>
                   <div class="chamber chamber-bottom">
-                    <div class="glass-inner"><div class="sand sand-bottom" style={{ height: `${Math.max(0, Math.min(100, (1 - this.remainingMs / (this.selectedSeconds * 1000)) * 100))}%` }} /></div>
+                    <div class="glass-inner"><div class="sand sand-bottom" style={{ transform: `scaleY(${Math.max(0, Math.min(1, this.hourglassFlipped ? this.remainingMs / (this.selectedSeconds * 1000) : 1 - this.remainingMs / (this.selectedSeconds * 1000)))})` }} /></div>
                   </div>
                   <div class="glass-cap cap-bottom" />
                 </div>
@@ -179,7 +182,7 @@ export class App extends ReactiveComponent {
     this.isPaused = false
     this.deadlineAtMs = Date.now() + this.remainingMs
     this.lastAnnouncedSecond = Math.ceil(this.remainingMs / 1000)
-    this.intervalId = setInterval(() => this.pulse(), 100)
+    this.intervalId = setInterval(() => this.pulse(), 50)
   }
 
   private pauseTimer(): void {
@@ -188,6 +191,8 @@ export class App extends ReactiveComponent {
     this.intervalId = null
     this.isRunning = false
     this.isPaused = true
+    this.flipStartedAtMs = 0
+    this.hourglassRotation = this.hourglassFlipped ? 180 : 0
   }
 
   private resetTimer(): void {
@@ -197,6 +202,8 @@ export class App extends ReactiveComponent {
     this.isPaused = false
     this.completedCycles = 0
     this.hourglassFlipped = false
+    this.hourglassRotation = 0
+    this.flipStartedAtMs = 0
     this.remainingMs = this.selectedSeconds * 1000
     this.lastAnnouncedSecond = this.selectedSeconds
   }
@@ -210,6 +217,8 @@ export class App extends ReactiveComponent {
       const cyclesElapsed = Math.floor(-remaining / durationMs) + 1
       this.completedCycles += cyclesElapsed
       this.hourglassFlipped = this.completedCycles % 2 === 1
+      this.flipFromDegrees = this.hourglassFlipped ? 0 : 180
+      this.flipStartedAtMs = now
       this.deadlineAtMs += cyclesElapsed * durationMs
       remaining = this.deadlineAtMs - now
       this.playCycleSound()
@@ -217,6 +226,12 @@ export class App extends ReactiveComponent {
     }
 
     this.remainingMs = Math.max(0, remaining)
+    if (this.flipStartedAtMs > 0) {
+      const progress = Math.min(1, (now - this.flipStartedAtMs) / 550)
+      const eased = progress * progress * (3 - 2 * progress)
+      this.hourglassRotation = this.flipFromDegrees + 180 * eased
+      if (progress >= 1) this.flipStartedAtMs = 0
+    }
     const secondsLeft = Math.ceil(this.remainingMs / 1000)
     if (secondsLeft > 0 && secondsLeft <= 5 && secondsLeft !== this.lastAnnouncedSecond) {
       this.playCountdownSound(secondsLeft)
