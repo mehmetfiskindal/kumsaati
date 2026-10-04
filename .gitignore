@@ -1,4 +1,8 @@
 node_modules/
 dist/
 .gea/build/
+.gea/*.log
+.gea-sailfish/
+dist-rpm/
+*.rpm
 .env
