@@ -1,32 +1,32 @@
-# Kum Saati — GeaStack ve Sailfish OS Dokümantasyonu
+# Kum Saati — GeaStack & Sailfish OS Documentation
 
-Bu dokümantasyon seti, **Kum Saati** (`gea-kusursuzzamanlayici`) uygulamasının **GeaStack** ile nasıl yazıldığını, WebView veya JavaScript motoru olmadan **Sailfish OS (`aarch64`)** üzerinde yerel (native) bir uygulama olarak nasıl çalıştığını ve Apple Silicon (macOS ARM64) ortamından fiziksel Sailfish OS cihazına (`defaultuser@192.168.2.15`) nasıl derlenip yüklendiğini uçtan uca açıklar.
+This documentation explains how **Kum Saati** (`gea-kusursuzzamanlayici`) is built with **GeaStack**, how it runs natively on **Sailfish OS (`aarch64`)** without a WebView or JavaScript runtime, and how to compile, package as a Harbour-compatible RPM, and deploy it to a physical Sailfish OS device (`defaultuser@192.168.2.15`) from either Apple Silicon macOS or a standard Sailfish SDK (`sfdk`) host.
 
-## Belgeler
+## Guides
 
-| Belge | Kapsam |
+| Document | Scope |
 | --- | --- |
-| [GeaStack Mimarisi ve Uygulama Örneği](./geastack-mimarisi.md) | GeaStack nedir, JSX/TSX + CSS'i C++20'ye nasıl derler, paket ekosistemi, `Kum Saati` kod analizi ve minimal örnek uygulama. |
-| [Sailfish OS'ta Nasıl Mümkün Oldu ve Nasıl Çalışır?](./sailfish-os-nasil-mumkun-oldu.md) | SDL2 + Wayland + Maliit + RGB565 yazılım rasterizer hattı, DPR/ölçekleme, çoklu dokunmatik, Türkçe glifler, Sailjail sandbox ve bilinen sınırlar. |
-| [Sailfish OS Derleme, Paketleme ve Cihaza Kurulum](./sailfish-os-derleme-ve-kurulum.md) | GitHub fork bağımlılıkları (`package.json`), `--prepare-only` aşaması, Apple Silicon Docker + Sailfish 5.1.0.11 `aarch64` chroot ile `rpmbuild`, `sfdk` alternatifi, `192.168.2.15` kurulumu ve sorun giderme. |
+| [GeaStack Architecture & Example App](./geastack-architecture.md) | What GeaStack is, how JSX/TSX + CSS compile AOT into C++20, package ecosystem, walkthrough of `Kum Saati`, and a minimal starter example for Sailfish OS. |
+| [How GeaStack Runs Natively on Sailfish OS](./sailfish-os-architecture.md) | Wayland + SDL2 + Maliit + RGB565 dirty-rect rendering pipeline, integer DPR scaling, multi-touch input, SDL2/PulseAudio synth (`PULSE_PROP_media.role=x-maemo`), Turkish/Unicode TTF glyphs, Sailjail sandboxing, and Apple Silicon native ARM64 chroot compilation. |
+| [Sailfish OS Build, Packaging, and Device Installation Guide](./sailfish-os-build-and-install.md) | Fork dependencies in `package.json` (and the `npm`/`pacote` monorepo SHA pin), `--prepare-only`, building RPMs inside the Sailfish OS 5.1.0.11 `aarch64` Docker chroot or with `sfdk`, deploying via USB Developer Mode (`192.168.2.15`), runtime debugging, and troubleshooting. |
 
-## Uçtan Uca Mimari Akış
+## End-to-End Pipeline
 
 ```mermaid
 flowchart LR
   A["src/index.tsx + src/styles.css\n+ assets/fonts/Inter-Regular.ttf"] --> B["Vite 8 + Module Graph Pruning"]
-  B --> C["geatsc + @geastack/geatsc-plugin-gea\n(AOT Derleyici)"]
-  C --> D["Üretilen C++20 + Statik CSS Tape\n+ Gömülü Font/Asset (.cpp)"]
-  D --> E["@geastack/linux prepare.mjs\n(Proje + CMakeLists.txt + .desktop + .spec + İkonlar)"]
-  E --> F["Sailfish OS 5.1.0.11 aarch64 Chroot\n(GCC 13.4 + CMake 3.31 + rpmbuild)"]
+  B --> C["geatsc + @geastack/geatsc-plugin-gea\n(AOT Compiler)"]
+  C --> D["Generated C++20 + Static CSS Tape\n+ Embedded Font/Asset (.cpp)"]
+  D --> E["@geastack/linux prepare.mjs\n(CMakeLists.txt + .desktop + .spec + Icons)"]
+  E --> F["Sailfish OS 5.1.0.11 aarch64 Chroot / sfdk\n(GCC 13.4 + CMake 3.31 + rpmbuild)"]
   F --> G["harbour-gea-kusursuzzamanlayici\n-0.1.0-1.aarch64.rpm"]
-  G --> H["USB Geliştirici Modu\n(defaultuser@192.168.2.15)"]
-  H --> I["Sailfish OS Cihazı\n(Wayland + SDL2 + Sailjail)"]
+  G --> H["USB Developer Mode\n(defaultuser@192.168.2.15)"]
+  H --> I["Sailfish OS Device\n(Wayland + SDL2 + PulseAudio + Sailjail)"]
 ```
 
-## Hızlı Özet: Ne Elde Edildi?
+## Key Highlights
 
-- **Tek kaynak kodu:** TypeScript/JSX (`src/index.tsx`) ve CSS (`src/styles.css`) ile yazılmış aynı uygulama Web, iOS ve Sailfish OS hedeflerine derlenebiliyor.
-- **Sıfır WebView / sıfır JS runtime:** Çalışma zamanında tarayıcı, Electron, Qt/QML veya V8 yok; `geatsc` uygulamayı doğrudan C++20'ye derliyor ve Sailfish OS üzerinde yerel `aarch64` ELF ikilisi (`/usr/bin/harbour-gea-kusursuzzamanlayici`) olarak çalışıyor.
-- **Native ARM64 derleme:** Apple Silicon Mac üzerinde x86 emülasyonu veya VirtualBox olmadan, Docker `linux/arm64` + resmi Sailfish OS 5.1.0.11 `aarch64` sysroot chroot içinde GCC 13.4 ile doğrudan RPM üretiliyor.
-- **Türkçe tipografi ve dokunmatik düzeltmeleri:** `mehmetfiskindal/core` (`packages/engine`) fork'u ile çalışma zamanı TTF rasterizer'a Türkçe glifler (`Ğ, ğ, İ, ı, Ş, ş, Ç, ç, Ö, ö, Ü, ü` ve UI sembolleri), `mehmetfiskindal/linux` (`sailfish-device-fixes`) fork'u ile Sailfish cihaz giriş/ölçekleme düzeltmeleri eklendi.
+- **Single codebase across platforms:** One TypeScript/JSX (`src/index.tsx`) and CSS (`src/styles.css`) codebase compiles to Web, iOS, and Sailfish OS.
+- **Zero WebView / zero JS VM:** No browser engine, Electron, Qt/QML, or V8 at runtime. `geatsc` ahead-of-time compiles the app into C++20 and produces a native `aarch64` ELF binary (`/usr/bin/harbour-gea-kusursuzzamanlayici`, ~1.9 MB RPM).
+- **Native ARM64 builds on Apple Silicon:** On macOS ARM64, the RPM is built natively inside a `linux/arm64` Docker container running `chroot` over the official Sailfish OS 5.1.0.11 `aarch64` SDK target with GCC 13.4 — no x86 emulation or VirtualBox required.
+- **Physical device readiness:** Includes automatic/integer pixel scaling, multi-touch and Maliit keyboard support (`mehmetfiskindal/linux#sailfish-device-fixes`), native SDL2/PulseAudio synthesis with `PULSE_PROP_media.role=x-maemo`, and Turkish/Latin Extended-A runtime TTF glyphs (`mehmetfiskindal/core`).
