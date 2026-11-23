@@ -12,8 +12,8 @@
     "@geajs/core": "^1.3.0",
     "@geastack/apple": "^0.2.9",
     "@geastack/cli": "^0.1.82",
-    "@geastack/core": "github:mehmetfiskindal/core#main::path:packages/core",
-    "@geastack/engine": "github:mehmetfiskindal/core#main::path:packages/engine",
+    "@geastack/core": "github:mehmetfiskindal/core#77b980616b5be74b0e5cec70bda16864b9fce76a::path:packages/core",
+    "@geastack/engine": "github:mehmetfiskindal/core#77b980616b5be74b0e5cec70bda16864b9fce76a::path:packages/engine",
     "@geastack/linux": "github:mehmetfiskindal/linux#sailfish-device-fixes"
   },
   "devDependencies": {
